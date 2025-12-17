@@ -20,14 +20,17 @@ const { chromium } = require('@playwright/test');
   await page.waitForLoadState('networkidle', { timeout: 30000 });
   await page.waitForTimeout(3000);
 
-  // 4) Clicca sulla voce "Plafond"
-  await page.getByText('Plafond', { exact: false }).click();
+  // 4) Clicca il tab/bottone che contiene l'icona pie_chart
+  await page.waitForSelector('mat-icon.example-tab-icon.material-icons', {
+    timeout: 30000
+  });
+  await page.click('mat-icon.example-tab-icon.material-icons:text("pie_chart")');
 
-  // 5) Attendi che la sezione Plafond si carichi
+  // 5) Attendi caricamento sezione collegata
   await page.waitForLoadState('networkidle', { timeout: 30000 });
   await page.waitForTimeout(3000);
 
-  // 6) Stampa l'HTML della pagina nello stato "Plafond"
+  // 6) Stampa l'HTML risultante
   const html = await page.content();
   console.log(html);
 
