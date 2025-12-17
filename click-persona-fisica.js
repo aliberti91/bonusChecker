@@ -8,7 +8,7 @@ const axios = require('axios');  // assicurati di avere axios: npm install axios
 
   const URL = 'https://www.bonusveicolielettrici.mase.gov.it/index.html';
   const TARGET = '(0,0%)';
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycb_TUA_WEBAPP_ID/exec'; // <-- sostituisci
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhblXCbOBrBNEuDZyRKFKoTk-CvnKV9lXoKCsXc3rs4naPIa25L-pEQEkCP8aQSOU/exec'; // <-- sostituisci
 
   // 1) Vai alla home
   await page.goto(URL, { waitUntil: 'networkidle' });
