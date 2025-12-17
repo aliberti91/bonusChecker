@@ -6,7 +6,7 @@ const { chromium } = require('@playwright/test');
   const page = await context.newPage();
 
   const URL = 'https://www.bonusveicolielettrici.mase.gov.it/index.html';
-  const EXPECTED = '6.291 €';
+  const TARGET = '(0,0%)';
 
   // 1) Vai alla home
   await page.goto(URL, { waitUntil: 'networkidle' });
@@ -27,24 +27,24 @@ const { chromium } = require('@playwright/test');
   });
   await page.click('mat-icon.example-tab-icon.material-icons:text("pie_chart")');
 
-  // 5) Attendi la sezione relativa caricata
+  // 5) Attendi la sezione Plafond
   await page.waitForLoadState('networkidle', { timeout: 30000 });
   await page.waitForTimeout(3000);
 
-  // 6) Leggi il valore dallo <strong>
-  // --- ADATTA QUESTO SELETTORE AL TUO DOM REALE ---
-  const strongSelector = 'strong[_ngcontent-ndl-c139]';
+  // 6) Prendi HTML e controlla la stringa
+  const html = await page.content();
 
-  await page.waitForSelector(strongSelector, { timeout: 30000 });
-  const value = (await page.textContent(strongSelector)).trim();
-
-  console.log('Valore letto in <strong>:', value);
-
-  if (value === EXPECTED) {
-    console.log('OK: il valore è esattamente "' + EXPECTED + '".');
+  if (html.includes(TARGET)) {
+    console.log('PRESENTE: trovato "' + TARGET + '"');
   } else {
-    console.log('ATTENZIONE: il valore è diverso da "' + EXPECTED + '"!');
-    // Qui puoi agganciare una notifica (webhook, mail via API, ecc.)
+    console.log('ASSENTE: "' + TARGET + '" non trovato!');
+
+    // QUI puoi inserire la tua logica di notifica.
+    // Esempi possibili (da implementare tu):
+    // - chiamare una tua API webhook:
+    //   await fetch('https://tuo-endpoint/notify', { method: 'POST', body: JSON.stringify({ msg: 'Valore cambiato' }) });
+    //
+    // - scrivere su un file, inviare su Telegram/Discord/Slack, ecc.
   }
 
   await browser.close();
