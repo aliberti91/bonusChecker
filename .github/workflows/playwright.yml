@@ -1,0 +1,26 @@
+name: Run Playwright script
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'   # ogni 4 ore (00, 04, 08, 12, 16, 20 UTC)
+  workflow_dispatch: {}      # per lanciarlo anche a mano
+
+jobs:
+  run-playwright:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install --with-deps
+
+      - name: Run script
+        run: |
+          npm run click
