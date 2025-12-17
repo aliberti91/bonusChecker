@@ -1,0 +1,11 @@
+{
+  "name": "bonus-ev-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "click": "node click-persona-fisica.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
