@@ -1,4 +1,5 @@
 const { chromium } = require('@playwright/test');
+const axios = require('axios');  // assicurati di avere axios: npm install axios
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -7,6 +8,7 @@ const { chromium } = require('@playwright/test');
 
   const URL = 'https://www.bonusveicolielettrici.mase.gov.it/index.html';
   const TARGET = '(0,0%)';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycb_TUA_WEBAPP_ID/exec'; // <-- sostituisci
 
   // 1) Vai alla home
   await page.goto(URL, { waitUntil: 'networkidle' });
@@ -34,17 +36,20 @@ const { chromium } = require('@playwright/test');
   // 6) Prendi HTML e controlla la stringa
   const html = await page.content();
 
-  if (html.includes(TARGET)) {
+  if (!html.includes(TARGET)) {
     console.log('PRESENTE: trovato "' + TARGET + '"');
   } else {
-    console.log('ASSENTE: "' + TARGET + '" non trovato!');
+    console.log('ASSENTE: "' + TARGET + '" non trovato! INOLTRO NOTIFICA...');
 
-    // QUI puoi inserire la tua logica di notifica.
-    // Esempi possibili (da implementare tu):
-    // - chiamare una tua API webhook:
-    //   await fetch('https://tuo-endpoint/notify', { method: 'POST', body: JSON.stringify({ msg: 'Valore cambiato' }) });
-    //
-    // - scrivere su un file, inviare su Telegram/Discord/Slack, ecc.
+    try {
+      await axios.post(APPS_SCRIPT_URL, {
+        target: TARGET,
+        htmlSnippet: html.slice(0, 1000) // opzionale: primi 1000 caratteri per debug
+      });
+      console.log('Chiamata POST a Apps Script inviata con successo.');
+    } catch (err) {
+      console.error('Errore chiamando Apps Script:', err.message);
+    }
   }
 
   await browser.close();
