@@ -1,5 +1,4 @@
 const { chromium } = require('@playwright/test');
-const axios = require('axios');  // assicurati di avere axios: npm install axios
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
