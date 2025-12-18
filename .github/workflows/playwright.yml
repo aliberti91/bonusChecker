@@ -2,7 +2,7 @@ name: Run Playwright script
 
 on:
   schedule:
-    - cron: '0 */4 * * *'   # ogni 4 ore (00, 04, 08, 12, 16, 20 UTC)
+    - cron: '*/30 * * * *'   # ogni 4 ore (00, 04, 08, 12, 16, 20 UTC)
   workflow_dispatch: {}      # per lanciarlo anche a mano
 
 jobs:
