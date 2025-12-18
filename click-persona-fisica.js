@@ -41,18 +41,18 @@ const { chromium } = require('@playwright/test');
     console.log('ASSENTE: "' + TARGET + '" non trovato! INOLTRO NOTIFICA...');
 
     try {
-  const res = await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      valueText: raw,
-      valueNumber: numeric
-    })
-  });
-  console.log('Chiamata POST a Apps Script, status:', res.status);
-} catch (err) {
-  console.error('Errore chiamando Apps Script:', err.message);
-}
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Cambiato qualcosa in plafond',
+        url: URL
+      })
+    });
+    console.log('Chiamata POST a Apps Script, status:', res.status);
+  } catch (err) {
+    console.error('Errore chiamando Apps Script:', err.message);
+  }
   }
 
   await browser.close();
