@@ -36,19 +36,6 @@ const { chromium } = require('@playwright/test');
   const html = await page.content();
 
   if (html.includes(TARGET)) {
-    try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: 'Tutto Uguale',
-        url: URL
-      })
-    });
-    console.log('Chiamata POST a Apps Script, status:', res.status);
-  } catch (err) {
-    console.error('Errore chiamando Apps Script:', err.message);
-  }
     console.log('PRESENTE: trovato "' + TARGET + '"');
   } else {
     console.log('ASSENTE: "' + TARGET + '" non trovato! INOLTRO NOTIFICA...');
