@@ -7,7 +7,7 @@ const { chromium } = require('@playwright/test');
 
   const URL = 'https://www.bonusveicolielettrici.mase.gov.it/index.html';
   const TARGET = '(0,0%)';
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyCxhBYHvUE238h3u9pPzcdVUu8TAMa_pgh7IvEJ6dFX1IP26OQF7DttP_CdcIcWZB_/exec'; // <-- sostituisci
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1RDMJtRcAL3VgnB8qMdnmVPtG2ow5U-9bXmBbz3u6J11LG_9p4wYiE5n7kA33okYP/exec'; // <-- sostituisci
 
   // 1) Vai alla home
   await page.goto(URL, { waitUntil: 'networkidle' });
