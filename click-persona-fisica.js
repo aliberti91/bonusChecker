@@ -35,7 +35,7 @@ const { chromium } = require('@playwright/test');
   // 6) Prendi HTML e controlla la stringa
   const html = await page.content();
 
-  if (!html.includes(TARGET)) {
+  if (html.includes(TARGET)) {
     console.log('PRESENTE: trovato "' + TARGET + '"');
   } else {
     console.log('ASSENTE: "' + TARGET + '" non trovato! INOLTRO NOTIFICA...');
